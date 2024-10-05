@@ -2,7 +2,8 @@ import streamlit as st
 import requests
 import pandas as pd
 from datetime import datetime, timedelta
-# import plotly.express as px  # For Plotly visualizations
+import plotly.express as px  # For Plotly visualizations
+from streamlit_autorefresh import st_autorefresh
 
 # Deribit API base URL
 base_url = "https://www.deribit.com/api/v2/public"
@@ -110,6 +111,9 @@ def create_options_df(options):
 # Streamlit dashboard
 st.title("Bitcoin Weekly Options Dashboard (Deribit)")
 
+# Set autorefresh every 2700 seconds (45 minutes)
+st_autorefresh(interval=2700 * 1000, key="btc_options_refresh")
+
 # Fetch all Bitcoin options (calls and puts)
 btc_options = get_all_btc_options()
 
@@ -137,12 +141,12 @@ if btc_options:
         # pie_fig = px.pie(call_put_distribution, names='Option Type', values='count', title='Call vs Put Distribution')
         # st.plotly_chart(pie_fig)
 
-        # Additional: Pie chart for Writers vs Buyers using Plotly
+        # # Additional: Pie chart for Writers vs Buyers using Plotly
         # st.subheader("Call/Put Writers vs Buyers")
         # writer_buyer_distribution = options_df['Writer Type'].value_counts().reset_index()
         # writer_buyer_distribution.columns = ['Writer Type', 'count']  # Rename columns to match what Plotly expects
         # writer_pie_fig = px.pie(writer_buyer_distribution, names='Writer Type', values='count', title='Call/Put Writers vs Buyers')
-        # # st.plotly_chart(writer_pie_fig)
+        # st.plotly_chart(writer_pie_fig)
 
     else:
         st.warning("No weekly expiring options found.")
