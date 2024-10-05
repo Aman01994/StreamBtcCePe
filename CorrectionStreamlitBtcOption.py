@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 import pandas as pd
 from datetime import datetime, timedelta
-import plotly.express as px  # For Plotly visualizations
+# import plotly.express as px  # For Plotly visualizations
 
 # Deribit API base URL
 base_url = "https://www.deribit.com/api/v2/public"
@@ -125,24 +125,24 @@ if btc_options:
         st.subheader("Weekly Expiring Bitcoin Options (Calls & Puts)")
         st.dataframe(options_df)
 
-        # Visualization: Bar chart of Open Interest by Instrument using Plotly
-        st.subheader("Open Interest by Instrument")
-        bar_fig = px.bar(options_df, x='Instrument', y='Open Interest', title='Open Interest by Instrument')
-        st.plotly_chart(bar_fig)
+        # # Visualization: Bar chart of Open Interest by Instrument using Plotly
+        # st.subheader("Open Interest by Instrument")
+        # bar_fig = px.bar(options_df, x='Instrument', y='Open Interest', title='Open Interest by Instrument')
+        # st.plotly_chart(bar_fig)
 
-        # Visualization: Pie chart for Call vs Put distribution using Plotly
-        st.subheader("Call vs Put Distribution")
-        call_put_distribution = options_df['Option Type'].value_counts().reset_index()
-        call_put_distribution.columns = ['Option Type', 'count']  # Rename columns to match what Plotly expects
-        pie_fig = px.pie(call_put_distribution, names='Option Type', values='count', title='Call vs Put Distribution')
-        st.plotly_chart(pie_fig)
+        # # Visualization: Pie chart for Call vs Put distribution using Plotly
+        # st.subheader("Call vs Put Distribution")
+        # call_put_distribution = options_df['Option Type'].value_counts().reset_index()
+        # call_put_distribution.columns = ['Option Type', 'count']  # Rename columns to match what Plotly expects
+        # pie_fig = px.pie(call_put_distribution, names='Option Type', values='count', title='Call vs Put Distribution')
+        # st.plotly_chart(pie_fig)
 
         # Additional: Pie chart for Writers vs Buyers using Plotly
-        st.subheader("Call/Put Writers vs Buyers")
-        writer_buyer_distribution = options_df['Writer Type'].value_counts().reset_index()
-        writer_buyer_distribution.columns = ['Writer Type', 'count']  # Rename columns to match what Plotly expects
-        writer_pie_fig = px.pie(writer_buyer_distribution, names='Writer Type', values='count', title='Call/Put Writers vs Buyers')
-        st.plotly_chart(writer_pie_fig)
+        # st.subheader("Call/Put Writers vs Buyers")
+        # writer_buyer_distribution = options_df['Writer Type'].value_counts().reset_index()
+        # writer_buyer_distribution.columns = ['Writer Type', 'count']  # Rename columns to match what Plotly expects
+        # writer_pie_fig = px.pie(writer_buyer_distribution, names='Writer Type', values='count', title='Call/Put Writers vs Buyers')
+        # # st.plotly_chart(writer_pie_fig)
 
     else:
         st.warning("No weekly expiring options found.")
